@@ -21,7 +21,7 @@ async def analyze_meal(file: UploadFile = File(...)):
     # В будущем сюда добавится логика обработки изображения
 
     return {
-        "name": "Яблоко 🍎",
+        "name": "Apple",
         "calories": 100,
         "timestamp": datetime.datetime.utcnow().isoformat()
     }
