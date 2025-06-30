@@ -7,6 +7,7 @@ app = FastAPI()
 
 @app.post("/analyze-meal")
 async def analyze_meal(file: UploadFile):
+    print(f"Filename: {file.filename}")
     # Здесь позже будет AI логика (в будущем)
     
     return {
