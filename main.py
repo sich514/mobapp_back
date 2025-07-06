@@ -22,6 +22,6 @@ async def analyze_meal(file: UploadFile = File(...)):
 
     return {
         "name": "Pineapple",
-        "calories": 100,
+        "calories": "100 kcal",
         "timestamp": datetime.datetime.utcnow().isoformat()
     }
