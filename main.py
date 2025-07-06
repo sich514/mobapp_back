@@ -23,5 +23,6 @@ async def analyze_meal(file: UploadFile = File(...)):
     return {
         "name": "Pineapple",
         "calories": "100 kcal",
+        "description": "A meal is a serving of food, or an occasion when food is eaten, often at regular times like breakfast, lunch, or dinner. Meals can be simple or elaborate, and they can be planned or spontaneous."
         "timestamp": datetime.datetime.utcnow().isoformat()
     }
