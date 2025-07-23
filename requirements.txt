@@ -1,6 +1,6 @@
 fastapi
 uvicorn
 python-multipart
-openai
+openai==0.28
 httpx
 python-dotenv
