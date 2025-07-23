@@ -1,6 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Dict
 import datetime
 import openai
 import base64
@@ -25,11 +24,11 @@ openai.api_key = "sk-proj-b7M4iGZ0zo8IauVFbk9ESfeNpcqLVWrqsMK_eC6ZQ6oyH9MW1KBbYq
 async def analyze_meal(file: UploadFile = File(...)):
     print(f"📥 Получен файл: {file.filename}")
 
-    # Чтение файла и base64 кодирование
+    # Читаем файл и кодируем в base64
     image_bytes = await file.read()
     image_base64 = base64.b64encode(image_bytes).decode("utf-8")
 
-    # Отправка изображения в GPT-4-Vision
+    # Отправляем запрос в GPT-4-Vision
     response = openai.chat.completions.create(
         model="gpt-4-vision-preview",
         messages=[
@@ -44,7 +43,14 @@ async def analyze_meal(file: UploadFile = File(...)):
                     },
                     {
                         "type": "text",
-                        "text": "Что на фото? Сколько примерно калорий в этом блюде? Дай краткое описание и обязательно точное количество калорий числом."
+                        "text": (
+                            "Посмотри на фото, определи, что это за еда, "
+                            "и оцени её калорийность в ккал. Обязательно укажи: "
+                            "- Краткое название блюда\n"
+                            "- Количество калорий (точное число)\n"
+                            "- Краткое описание.\n"
+                            "Форматируй как обычный абзац текста."
+                        )
                     }
                 ]
             }
@@ -55,12 +61,12 @@ async def analyze_meal(file: UploadFile = File(...)):
     result_text = response.choices[0].message.content
     print("📤 Ответ от GPT:", result_text)
 
-    # 🔍 Извлекаем калории числом (первое число перед "ккал" или "kcal")
+    # 🔍 Ищем калории — первое число перед "ккал" или "kcal"
     calorie_match = re.search(r"(\d{2,4})\s?(?:ккал|kcal)", result_text.lower())
     calories = int(calorie_match.group(1)) if calorie_match else 0
 
     return {
-        "name": "Meal",  # Позже можно тоже извлекать из текста
+        "name": "Meal",  # Пока фиксировано — можно позже извлекать
         "calories": calories,
         "description": result_text,
         "timestamp": datetime.datetime.utcnow().isoformat()
