@@ -8,13 +8,18 @@ from dotenv import load_dotenv
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def query_openai_image(image_bytes: bytes) -> str:
-    """
-    Отправляет изображение в OpenAI GPT-4 Vision и возвращает текстовый ответ.
-    """
+from openai import OpenAI
+import base64
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+def query_openai_image(image_bytes: bytes):
     base64_image = base64.b64encode(image_bytes).decode("utf-8")
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages=[
             {
@@ -23,8 +28,7 @@ def query_openai_image(image_bytes: bytes) -> str:
                     {
                         "type": "text",
                         "text": (
-                            "На фото изображена еда. Проанализируй и верни JSON-объект строго в формате:\n"
-                            "{ \"name\": название блюда, \"calories\": калорийность, \"description\": описание еды }"
+                            "На фото изображена еда. Верни JSON: { \"name\": ..., \"calories\": ..., \"description\": ... }"
                         )
                     },
                     {
