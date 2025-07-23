@@ -5,8 +5,8 @@ import re
 from dotenv import load_dotenv
 
 # Загружаем переменные окружения из .env
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+OPENAI_API_KEY="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"
+openai.api_key = OPENAI_API_KEY
 
 from openai import OpenAI
 import base64
