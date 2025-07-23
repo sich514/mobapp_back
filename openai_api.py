@@ -8,14 +8,6 @@ from dotenv import load_dotenv
 OPENAI_API_KEY="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"
 openai.api_key = OPENAI_API_KEY
 
-from openai import OpenAI
-import base64
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
 def query_openai_image(image_bytes: bytes):
     base64_image = base64.b64encode(image_bytes).decode("utf-8")
 
