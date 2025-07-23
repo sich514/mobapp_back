@@ -3,7 +3,7 @@ import re
 from openai import OpenAI
 
 # ⚠️ API-ключ вставляется прямо сюда
-OPENAI_API_KEY = "sk-xcWeNyaifHwx4tvzOe2OoYyRfaWmxU9PmtG0FEXCxCT3BlbkFJ83isXrAcVYf_D5vzBbG21zipwBO978k5LVkPXzugcA"
+OPENAI_API_KEY = "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"
 
 # 📡 Создаём OpenAI клиент напрямую
 client = OpenAI(api_key=OPENAI_API_KEY)
