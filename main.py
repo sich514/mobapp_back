@@ -10,6 +10,7 @@ import os
 
 # 🔐 Твой API-ключ
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+print('Yes')
 
 app = FastAPI()
 
