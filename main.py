@@ -6,9 +6,10 @@ import base64
 from PIL import Image
 import io
 from openai import OpenAI
+import os
 
 # 🔐 Твой API-ключ
-client = OpenAI(api_key='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')
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 app = FastAPI()
 
